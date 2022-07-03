@@ -3,7 +3,7 @@ My own code to convert from event stream to video of just the event stream (bina
 
 # Using the code
 ```
-load('SampleEventData1.csv');
+load('SampleEventData.csv');
 t_integration = 10000
 imgs = E2V(EV1, t_integration);
 ```
