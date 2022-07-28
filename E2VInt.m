@@ -17,6 +17,9 @@ for iter = 1:N
     j = EventData(iter, 2) + 1;
     t = EventData(iter, 5);
     intensity = getIntensity(EventData(iter, 3), EventData(iter, 4));
+    %if (intensity > threshold)
+    %    imgs(i, j, multiplier) = intensity;
+    %end
     imgs(i, j, multiplier) = 255; %intensity;
     if (t>multiplier*intTime)
         multiplier = multiplier+1;
@@ -24,6 +27,7 @@ for iter = 1:N
 end
 
 write_imgs(imgs);
+makeVideo(last_multiplier);
 
 end
 
@@ -47,4 +51,15 @@ for iter = 1:T
     imwrite(imgs(:,:,iter), s);
 end
 
+end
+
+function [] = makeVideo(N)
+video = VideoWriter('results/video.avi'); %create the video object
+open(video); %open the file for writing
+for i1=1:N %where N is the number of images
+    filename = 'results/img_'+string(i1)+'.png';
+    I = imread(filename); %read the next image
+    writeVideo(video,I); %write the image to file
+end
+close(video); %close the file
 end
